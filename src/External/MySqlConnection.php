@@ -2,6 +2,7 @@
 
 namespace Pagamento\External;
 
+require "./config.php";
 require "./src/Interfaces/DbConnection/DbConnectionInterface.php";
 
 use Pagamento\Interfaces\DbConnection\DbConnectionInterface;
