@@ -18,7 +18,7 @@ class DynamoDBConnection implements DbConnectionNoSQLInterface
 
     public function __construct()
     {
-        $this->credentials = new Credentials(AWS_ACCESS_KEY, AWS_ACCESS_SECRET);
+        $this->credentials = new Credentials(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY);
         $this->region = 'us-east-1';
     }
     public function conectar()
