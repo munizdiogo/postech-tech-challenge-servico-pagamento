@@ -57,7 +57,10 @@ jobs:
 
       - name: Deploy updated source code to AWS ECR
         run: |
-          docker build -t diogomuniz/techchallenge-aplicacao-servico-pagamento .
+          docker build \
+                  --build-arg AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }} \
+                  --build-arg AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }} \
+                  -t diogomuniz/techchallenge-aplicacao-servico-pagamento .
           docker login -u AWS -p $(aws ecr get-login-password --region us-east-1) 751916211357.dkr.ecr.us-east-1.amazonaws.com/techchallenge-pagamento
           docker tag diogomuniz/techchallenge-aplicacao-servico-pagamento:latest 751916211357.dkr.ecr.us-east-1.amazonaws.com/techchallenge-pagamento
           docker push 751916211357.dkr.ecr.us-east-1.amazonaws.com/techchallenge-pagamento:latest

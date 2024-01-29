@@ -2,6 +2,9 @@
 # Construir o PHP Apache
 FROM php:8.0-apache
 
+ARG AWS_ACCESS_KEY_ID
+ARG AWS_SECRET_ACCESS_KEY
+
 ENV COMPOSER_ALLOW_SUPERUSER=1
 RUN set -eux
 
