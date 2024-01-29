@@ -1,6 +1,6 @@
 # Tech Challenge - Sistema de Lanchonete - Serviço: Pagamento
 
-Esta documentação tem o intuito de orientar sobre a configuração e utilização correta do sistema de lanchonete para o serviço: "Pagamento" que é responsável por registrar um novo pagamento no banco de dados e atualizar o status do pagamento do pedido.
+Esta documentação tem o intuito de orientar sobre a configuração e utilização correta do sistema de lanchonete para o serviço: "Pagamento" que é responsável por registrar um novo pagamento no banco de dados e atualizar o status do pagamento de um pedido gerado anteriormente.
 
 
 ## Infraestrutura
