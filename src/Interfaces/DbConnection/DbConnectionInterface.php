@@ -10,4 +10,5 @@ interface DbConnectionInterface
     public function atualizar(string $nomeTabela, int $id, array $parametros): bool;
     public function excluir(string $nomeTabela, int $id): bool;
     public function buscarTodosPedidosPorCpf(string $nomeTabela, string $cpf);
+    
 }
