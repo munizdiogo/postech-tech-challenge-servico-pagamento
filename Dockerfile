@@ -16,8 +16,8 @@ COPY . /var/www/html
 COPY src/. /var/www/html/src
 
 echo "<?php
-const AWS_ACCESS_KEY_ID = "${AWS_ACCESS_KEY_ID}";
-const AWS_SECRET_ACCESS_KEY = "${AWS_SECRET_ACCESS_KEY}";
+const AWS_ACCESS_KEY_ID = '${AWS_ACCESS_KEY_ID}';
+const AWS_SECRET_ACCESS_KEY = '${AWS_SECRET_ACCESS_KEY}';
 " > /var/www/html/dynamoDbCredentials.php
 
 # Instala as dependências necessárias
