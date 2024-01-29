@@ -35,8 +35,7 @@ RUN composer install
 # Expõe a porta 80
 EXPOSE 80
 
-#!/bin/bash
-echo "<?php
+RUN echo "<?php
 const AWS_ACCESS_KEY_ID = '${AWS_ACCESS_KEY_ID}';
 const AWS_SECRET_ACCESS_KEY = '${AWS_SECRET_ACCESS_KEY}';
 " > /var/www/html/dynamoDbCredentials.php
