@@ -53,6 +53,8 @@ class PedidoGateway implements PedidoGatewayInterface
         return !empty($idPedido) ? (int)$idPedido : false;
     }
 
+
+
     public function buscarPedidosPorCpf($cpf)
     {
         $pedidosFormatados = [];

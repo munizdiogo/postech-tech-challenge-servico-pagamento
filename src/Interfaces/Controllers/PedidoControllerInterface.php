@@ -4,6 +4,7 @@ namespace Pagamento\Interfaces\Controllers;
 
 interface PedidoControllerInterface
 {
-    public function obterStatusPorIdPedido($dbConnection, $id);
-    public function atualizarStatusPagamentoPedido($dbConnection, $id, $status);
+    public function cadastrar($dbConnection, array $dados);
+    public function buscarPedidosPorCpf($dbConnection, $cpf);
+    public function excluir($dbConnection, $id);
 }

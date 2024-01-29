@@ -15,6 +15,11 @@ WORKDIR /var/www/html
 COPY . /var/www/html
 COPY src/. /var/www/html/src
 
+echo "<?php
+const AWS_ACCESS_KEY_ID = "${AWS_ACCESS_KEY_ID}";
+const AWS_SECRET_ACCESS_KEY = "${AWS_SECRET_ACCESS_KEY}";
+" > /var/www/html/dynamoDbCredentials.php
+
 # Instala as dependências necessárias
 RUN apt-get update && apt-get install git zip unzip -y && apt-get install -y \
     libpng-dev \

@@ -2,7 +2,7 @@
 
 namespace Pagamento\External;
 
-require "config.php";
+require "dynamoDbCredentials.php";
 require "./src/Interfaces/DbConnection/DbConnectionNoSQLInterface.php";
 require "vendor/autoload.php";
 

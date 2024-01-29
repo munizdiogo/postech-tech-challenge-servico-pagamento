@@ -63,25 +63,11 @@ if (!empty($_GET["acao"])) {
             retornarRespostaJSON("Status do pagamento do pedido atualizado com sucesso.", 200);
             break;
 
-        case "obterStatusPorIdPedido":
-            $id = !empty($_GET["id"]) ? (int)$_GET["id"] : 0;
-
-            if (empty($id)) {
-                retornarRespostaJSON("É obrigatório informar o ID do pedido.", 400);
-                exit;
-            }
-
-            $resposta = $pedidoController->obterStatusPorIdPedido($dbConnection, $id);
-            retornarRespostaJSON($resposta, 200);
-            break;
-
         default:
             echo '{"mensagem": "A ação informada é inválida."}';
             http_response_code(400);
     }
 }
-
-
 
 function random_string($length)
 {
