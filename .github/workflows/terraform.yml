@@ -14,10 +14,10 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Run unit tests
-        run: echo "<?php const AWS_ACCESS_KEY_ID = '${{secrets.AWS_ACCESS_KEY_ID}}'; const AWS_SECRET_ACCESS_KEY = '${{secrets.AWS_SECRET_ACCESS_KEY}}';" > /var/www/html/dynamoDbCredentials.php && composer install && ./vendor/bin/phpunit --testdox tests --colors
+        run: echo "<?php const AWS_ACCESS_KEY_ID = '${{secrets.AWS_ACCESS_KEY_ID}}'; const AWS_SECRET_ACCESS_KEY = '${{secrets.AWS_SECRET_ACCESS_KEY}}';" > dynamoDbCredentials.php && composer install && ./vendor/bin/phpunit --testdox tests --colors
 
       - name: Run BDD tests
-        run: echo "<?php const AWS_ACCESS_KEY_ID = '${{secrets.AWS_ACCESS_KEY_ID}}'; const AWS_SECRET_ACCESS_KEY = '${{secrets.AWS_SECRET_ACCESS_KEY}}';" > /var/www/html/dynamoDbCredentials.php && composer install && ./vendor/bin/behat
+        run: echo "<?php const AWS_ACCESS_KEY_ID = '${{secrets.AWS_ACCESS_KEY_ID}}'; const AWS_SECRET_ACCESS_KEY = '${{secrets.AWS_SECRET_ACCESS_KEY}}';" > dynamoDbCredentials.php && composer install && ./vendor/bin/behat
 
   update-image-aws-ecr:
     runs-on: ubuntu-latest
