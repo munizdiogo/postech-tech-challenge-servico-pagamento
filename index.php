@@ -4,10 +4,10 @@
 
 header('Content-Type: application/json; charset=utf-8');
 require "./utils/RespostasJson.php";
-require "./pagamento/src/External/MySqlConnection.php";
-require "./pagamento/src/External/DynamoDBConnection.php";
-require "./pagamento/src/Controllers/PagamentoController.php";
-require "./pagamento/src/Controllers/PedidoController.php";
+require "./src/External/MySqlConnection.php";
+require "./src/External/DynamoDBConnection.php";
+require "./src/Controllers/PagamentoController.php";
+require "./src/Controllers/PedidoController.php";
 
 use Pagamento\External\MySqlConnection;
 use Pagamento\External\DynamoDBConnection;
