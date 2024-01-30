@@ -2,7 +2,6 @@
 
 namespace Pagamento\Controllers;
 
-require "./src/Gateways/PagamentoGateway.php";
 require "./src/UseCases/PagamentoUseCases.php";
 require "./src/Interfaces/Controllers/PagamentoControllerInterface.php";
 
