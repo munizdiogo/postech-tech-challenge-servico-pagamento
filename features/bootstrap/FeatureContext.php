@@ -1,7 +1,6 @@
 <?php
 
 require "./src/Controllers/PagamentoController.php";
-require "./src/Gateways/PagamentoGateway.php";
 require "./src/External/DynamoDBConnection.php";
 
 use Pagamento\Controllers\PagamentoController;

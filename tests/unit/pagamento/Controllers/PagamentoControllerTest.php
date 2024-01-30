@@ -4,7 +4,6 @@ namespace Pagamento\Controllers;
 
 require "./src/External/DynamoDBConnection.php";
 require "./src/Controllers/PagamentoController.php";
-require "./src/Gateways/PagamentoGateway.php";
 
 use Pagamento\Gateways\PagamentoGateway;
 use Pagamento\Controllers\PagamentoController;
