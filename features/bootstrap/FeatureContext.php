@@ -3,7 +3,6 @@
 require "./src/Controllers/PagamentoController.php";
 require "./src/Gateways/PagamentoGateway.php";
 require "./src/External/DynamoDBConnection.php";
-require "./src/UseCases/PagamentoUseCases.php";
 
 use Pagamento\Controllers\PagamentoController;
 use PHPUnit\Framework\TestCase;
