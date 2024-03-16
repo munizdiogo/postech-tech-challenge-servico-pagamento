@@ -2,13 +2,20 @@
 
 namespace Pagamento\External;
 
-require "dynamoDbCredentials.php";
-require "./src/Interfaces/DbConnection/DbConnectionNoSQLInterface.php";
-require "vendor/autoload.php";
+if (file_exists("./dynamoDbCredentials.php")) {
+    require "./dynamoDbCredentials.php";
+    require "./src/Interfaces/DbConnection/DbConnectionNoSQLInterface.php";
+    require "./vendor/autoload.php";
+} else {
+    require "../../dynamoDbCredentials.php";
+    require "../Interfaces/DbConnection/DbConnectionNoSQLInterface.php";
+    require "../../vendor/autoload.php";
+}
 
 use Aws\Credentials\Credentials;
 use Pagamento\Interfaces\DbConnection\DbConnectionNoSQLInterface;
 use Aws\DynamoDb\DynamoDbClient;
+use Aws\DynamoDb\Exception\DynamoDbException;
 use Aws\DynamoDb\Marshaler;
 
 class DynamoDBConnection implements DbConnectionNoSQLInterface
@@ -59,7 +66,30 @@ class DynamoDBConnection implements DbConnectionNoSQLInterface
         return $result['@metadata']['statusCode'] == 200;
     }
 
-    public function excluir(string $nomeTabela, string $id)
+    public function atualizarStatusPagamentoPorIdPedido(string $nomeTabela, int $idPedido, string $status)
+    {
+        $dynamodb = $this->conectar();
+        $tableName = $nomeTabela;
+
+        $updateExpression = 'SET #attributeName = :attributeValue';
+        $expressionAttributeNames = ['#attributeName' => 'Status'];
+        $expressionAttributeValues = [':attributeValue' => ['S' => $status]];
+
+        $result = $dynamodb->updateItem([
+            'TableName'                 => $tableName,
+            'Key'                       => [
+                'IdPedido' => ['S' => "$idPedido"],
+            ],
+            'UpdateExpression'          => $updateExpression,
+            'ExpressionAttributeNames'  => $expressionAttributeNames,
+            'ExpressionAttributeValues' => $expressionAttributeValues,
+            'ReturnValues'              => 'ALL_NEW'
+        ]);
+
+        return $result['@metadata']['statusCode'] == 200;
+    }
+
+    public function excluir(string $nomeTabela, string $idPedido)
     {
         $dynamodb = $this->conectar();
         $tableName = $nomeTabela;
@@ -68,7 +98,7 @@ class DynamoDBConnection implements DbConnectionNoSQLInterface
             [
                 'TableName' => $tableName,
                 'Key' => [
-                    'IdTransacao' => ['S' => $id],
+                    'IdPedido' => ['S' => $idPedido],
                 ],
             ]
         );

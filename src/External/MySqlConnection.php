@@ -2,8 +2,13 @@
 
 namespace Pagamento\External;
 
-require "./mySqlConnectionCredentials.php";
-require "./src/Interfaces/DbConnection/DbConnectionInterface.php";
+if (file_exists("./mySqlConnectionCredentials.php")) {
+    require "./mySqlConnectionCredentials.php";
+    require "./src/Interfaces/DbConnection/DbConnectionInterface.php";
+} else {
+    require "../../mySqlConnectionCredentials.php";
+    require "../Interfaces/DbConnection/DbConnectionInterface.php";
+}
 
 use Pagamento\Interfaces\DbConnection\DbConnectionInterface;
 use \PDO;
@@ -25,6 +30,19 @@ class MySqlConnection implements DbConnectionInterface
         return $conn;
     }
 
+    public function obterPorCpf($nomeTabela, $cpf)
+    {
+        $db = $this->conectar();
+        $query = "SELECT *
+                  FROM $nomeTabela
+                  WHERE  cpf = :cpf";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':cpf', $cpf, PDO::PARAM_STR);
+        $stmt->execute();
+        $dados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $dados ?? [];
+    }
+
     public function inserir(string $nomeTabela, array $parametros)
     {
         $db = $this->conectar();
@@ -44,7 +62,7 @@ class MySqlConnection implements DbConnectionInterface
         }
     }
 
-    public function buscarTodosPedidosPorCpf(string $nomeTabela, $cpf): array
+    public function buscarTodosPedidosPorCpf(string $nomeTabela, string $cpf): array
     {
         $db = $this->conectar();
         $query = "SELECT *

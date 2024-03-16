@@ -40,12 +40,21 @@ class PedidoController implements PedidoControllerInterface
         $resultado = $pedidoUseCases->atualizarStatusPagamentoPedido($pedidoGateway, $id, $status);
         return $resultado;
     }
+
     public function excluir($dbConnection, $id)
     {
         $id = $id ?? "";
         $pedidoGateway = new PedidoGateway($dbConnection);
         $pedidoUseCases = new PedidoUseCases();
         $resultado = $pedidoUseCases->excluir($pedidoGateway, $id);
+        return $resultado;
+    }
+    
+    public function atualizarStatusPedido($dbConnection, $id, $status)
+    {
+        $pedidoGateway = new PedidoGateway($dbConnection);
+        $pedidoUseCases = new PedidoUseCases();
+        $resultado = $pedidoUseCases->atualizarStatusPedido($pedidoGateway, $id, $status);
         return $resultado;
     }
 }
