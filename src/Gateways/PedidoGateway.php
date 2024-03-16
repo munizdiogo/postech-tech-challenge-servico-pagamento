@@ -23,7 +23,7 @@ class PedidoGateway implements PedidoGatewayInterface
     public function cadastrar(Pedido $pedido)
     {
         $parametros = [
-            "data_criacao" => date('Y-m-y h:s:i'),
+            "data_criacao" => date('Y-m-d h:i:s'),
             "status" => $pedido->getStatus(),
             "cpf" => $pedido->getCPF(),
             "pagamento_status" => "pendente",
@@ -39,7 +39,7 @@ class PedidoGateway implements PedidoGatewayInterface
 
         foreach ($produtos as $produto) {
             $parametros = [
-                "data_criacao" => date('Y-m-y h:s:i'),
+                "data_criacao" => date('Y-m-d h:i:s'),
                 "pedido_id" => $idPedido,
                 "produto_id" => $produto["id"],
                 "produto_nome" => $produto["nome"],
@@ -129,6 +129,16 @@ class PedidoGateway implements PedidoGatewayInterface
         ];
         $resultado = $this->repositorioDados->buscarPorParametros($this->nomeTabelaPedidos, $campos, $parametros);
 
+        return $resultado;
+    }
+
+    public function atualizarStatusPedido($id, $status): bool
+    {
+        $parametros = [
+            "data_alteracao" => date('Y-m-d h:i:s'),
+            "status" => $status
+        ];
+        $resultado = $this->repositorioDados->atualizar($this->nomeTabelaPedidos, $id, $parametros);
         return $resultado;
     }
 }

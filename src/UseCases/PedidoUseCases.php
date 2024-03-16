@@ -4,6 +4,7 @@ namespace Pagamento\UseCases;
 
 require "./src/Interfaces/UseCases/PedidoUseCasesInterface.php";
 
+use Pagamento\Controllers\RabbitMqController;
 use Pagamento\Entities\Pedido;
 use Pagamento\Gateways\PedidoGateway;
 use Pagamento\Interfaces\UseCases\PedidoUseCasesInterface;
@@ -58,5 +59,33 @@ class PedidoUseCases implements PedidoUseCasesInterface
 
         $pedidos = $pedidoGateway->atualizarStatusPagamentoPedido($id, $status);
         return $pedidos;
+    }
+
+    public function atualizarStatusPedido(PedidoGateway $pedidoGateway, int $id, string $status)
+    {
+        $statusPermitidos = ["recebido", "em_preparacao", "pronto", "finalizado"];
+        $statusValido = in_array($status, $statusPermitidos);
+
+        if (empty($id)) {
+            throw new \Exception("O campo id é obrigatório.", 400);
+        }
+
+        if (!$statusValido) {
+            throw new \Exception("O status informado é inválido.", 400);
+        }
+
+        $pedidoValido = (bool)$pedidoGateway->obterPorId($id);
+        if (!$pedidoValido) {
+            throw new \Exception("Não foi encontrado um pedido com o ID informado.", 400);
+        }
+
+        $resultado = $pedidoGateway->atualizarStatusPedido($id, $status);
+
+        if ($status == "finalizado") {
+            $rabbitMqController = new RabbitMqController();
+            $rabbitMqController->enviarMsgParaQueue("entregas_confirmadas", $id);
+        }
+
+        return $resultado;
     }
 }

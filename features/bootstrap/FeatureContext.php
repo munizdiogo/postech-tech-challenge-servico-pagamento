@@ -35,12 +35,12 @@ class FeatureContext extends TestCase implements Context
      */
     public function queExistemDadosValidosParaCadastrarUmPagamento()
     {
-        $idTransacao = 9999999999999999;
+        $IdPedido = 9999999999999999;
         $dataCriacao = new \DateTime("now");
         $dadosPagamento = [
-            "IdTransacao" => $idTransacao,
+            "IdTransacao" => 123,
             "DataCriacao" => $dataCriacao->format('Y-m-d H:i:s'),
-            "IdPedido" => 9999999999999999,
+            "IdPedido" => $IdPedido,
             "Cpf" => "42157363823",
             "Valor" => "100.00",
             "FormaPagamento" => "debito",
@@ -64,8 +64,8 @@ class FeatureContext extends TestCase implements Context
     public function euDevoReceberUmaConfirmacaoDeQueOsDadosForamSalvosComSucesso()
     {
         $this->assertTrue($this->resultado);
-        $idTransacao = $this->resultado;
-        $excluidoComSucesso = $this->pagamentoUseCases->excluir($this->pagamentoGateway, $idTransacao);
+        $IdPedido = $this->resultado;
+        $excluidoComSucesso = $this->pagamentoUseCases->excluir($this->pagamentoGateway, $IdPedido);
         $this->assertTrue($excluidoComSucesso);
     }
 
@@ -77,7 +77,7 @@ class FeatureContext extends TestCase implements Context
         $dataCriacao = new \DateTime("now");
         $dadosPagamento = [
             "DataCriacao" => $dataCriacao->format('Y-m-d H:i:s'),
-            "IdPedido" => 9999999999999999,
+            "IdTransacao" => 9999999999999999,
             "Cpf" => "42157363823",
             "Valor" => "100.00",
             "FormaPagamento" => "debito",
@@ -105,7 +105,7 @@ class FeatureContext extends TestCase implements Context
      */
     public function euDevoReceberUmaRespostaDeQueOCampoObrigatorioParaCriarOPagamentoNaoFoiInformado()
     {
-        $this->assertEquals("O campo IdTransacao é obrigatório.", $this->exceptionMessage);
+        $this->assertEquals("O campo IdPedido é obrigatório.", $this->exceptionMessage);
         $this->assertEquals(400, $this->exceptionCode);
     }
 }
