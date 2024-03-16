@@ -71,6 +71,12 @@ class DynamoDBConnection implements DbConnectionNoSQLInterface
         $dynamodb = $this->conectar();
         $tableName = $nomeTabela;
 
+        $statusPermitidos = ["aprovado", "rejeitado", "pendente"];
+
+        if (!in_array($status, $statusPermitidos)) {
+            return false;
+        }
+
         $updateExpression = 'SET #attributeName = :attributeValue';
         $expressionAttributeNames = ['#attributeName' => 'Status'];
         $expressionAttributeValues = [':attributeValue' => ['S' => $status]];
