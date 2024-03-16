@@ -1,6 +1,6 @@
 <?php
 
-const RABBITMQ_HOST = "a9e365e06974a4e05a5af2d6aba1ea1b-329067254.us-east-1.elb.amazonaws.com";
+const RABBITMQ_HOST = "a7a9601bec7444bcf94ecf81215067b1-1180709583.us-east-1.elb.amazonaws.com";
 const RABBITMQ_PORT = 5672;
 const RABBITMQ_USERNAME = "postech";
 const RABBITMQ_PASSWORD = "Postech123456";
