@@ -40,3 +40,10 @@ RUN composer install
 EXPOSE 80
 
 RUN echo "<?php const AWS_ACCESS_KEY_ID = '${AWS_ACCESS_KEY_ID}'; const AWS_SECRET_ACCESS_KEY = '${AWS_SECRET_ACCESS_KEY}';" > /var/www/html/dynamoDbCredentials.php
+
+# Copy entrypoint script
+COPY entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+# Set entrypoint
+ENTRYPOINT ["entrypoint.sh"]
