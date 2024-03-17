@@ -31,10 +31,12 @@ if (!empty($_GET["acao"])) {
         case "atualizarStatus":
             $id = !empty($_POST["id"]) ? (int)$_POST["id"] : 0;
             $status = $_POST["status"] ?? "";
+            $cpf = !empty($_POST["cpf"]) ? str_replace([".", "-"], "",  $_POST["cpf"]) : "";
 
             $dadosPagamento = [
                 "IdPedido" => $id,
-                "Status" => $status
+                "Status" => $status,
+                "Cpf" => $cpf
             ];
 
             foreach ($dadosPagamento as $chave => $valor) {
