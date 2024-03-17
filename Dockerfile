@@ -40,8 +40,3 @@ RUN composer install
 EXPOSE 80
 
 RUN echo "<?php const AWS_ACCESS_KEY_ID = '${AWS_ACCESS_KEY_ID}'; const AWS_SECRET_ACCESS_KEY = '${AWS_SECRET_ACCESS_KEY}';" > /var/www/html/dynamoDbCredentials.php
-
-# Executa os scripts em segundo plano com nohup
-CMD ["bash", "-c", "nohup php /var/www/html/src/Mensageria/ObterNovosPedidos.php > /dev/null 2>&1 & \
-    nohup php /var/www/html/src/Mensageria/CriarTransacoes.php > /dev/null 2>&1 & \
-    apache2-foreground"]
