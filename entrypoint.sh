@@ -8,7 +8,8 @@ while ! pgrep -x httpd > /dev/null; do sleep 1; done
 
 # Execute PHP scripts
 cd /var/www/html/src/Mensageria/
-nohup php EnviarPedidosPagosParaCozinhaEEnviarEmailCliente.php > /dev/null 2>&1 &
+nohup php ObterNovosPedidos.php > /dev/null 2>&1 &
+nohup php CriarTransacoes.php > /dev/null 2>&1 &
 
 # Keep container running
 exec "$@"
