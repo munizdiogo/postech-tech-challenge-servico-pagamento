@@ -31,21 +31,11 @@ if (!empty($_GET["acao"])) {
         case "atualizarStatus":
             $id = !empty($_POST["id"]) ? (int)$_POST["id"] : 0;
             $status = $_POST["status"] ?? "";
-            $cpf = $_POST["cpf"] ?? "";
-            $valor = $_POST["valor"] ?? "";
-            $formaPagamento = $_POST["forma_pagamento"] ?? "";
-            $dataCriacao = new DateTime('now');
 
             $dadosPagamento = [
-                "IdTransacao" => random_string(10),
-                "DataCriacao" => $dataCriacao->format('Y-m-d H:i:s'),
                 "IdPedido" => $id,
-                "Cpf" => $cpf,
-                "Valor" => $valor,
-                "FormaPagamento" => $formaPagamento,
                 "Status" => $status
             ];
-
 
             foreach ($dadosPagamento as $chave => $valor) {
                 if (empty($valor)) {
